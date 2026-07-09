@@ -1,0 +1,94 @@
+student-management-system/
+
+├── docker-compose.yml
+├── README.md
+├── .env
+
+├── auth-service/
+│   ├── app/
+│   │   ├── api/
+│   │   │   ├── auth.py
+│   │   │   └── users.py
+│   │   │
+│   │   ├── core/
+│   │   │   ├── config.py
+│   │   │   ├── security.py
+│   │   │   └── auth.py
+│   │   │
+│   │   ├── database/
+│   │   │   ├── connection.py
+│   │   │   └── session.py
+│   │   │
+│   │   ├── models/
+│   │   │   └── user.py
+│   │   │
+│   │   ├── schemas/
+│   │   │   └── user_schema.py
+│   │   │
+│   │   ├── services/
+│   │   │   └── user_service.py
+│   │   │
+│   │   └── main.py
+│   │
+│   ├── requirements.txt
+│   ├── Dockerfile
+│   └── .env
+
+
+├── student-service/
+│   ├── app/
+│   │   ├── api/
+│   │   │   └── students.py
+│   │   │
+│   │   ├── core/
+│   │   │   └── security.py
+│   │   │
+│   │   ├── database/
+│   │   │   └── connection.py
+│   │   │
+│   │   ├── models/
+│   │   │   └── student.py
+│   │   │
+│   │   ├── schemas/
+│   │   │   └── student_schema.py
+│   │   │
+│   │   ├── services/
+│   │   │   └── student_service.py
+│   │   │
+│   │   └── main.py
+│   │
+│   ├── requirements.txt
+│   ├── Dockerfile
+│   └── .env
+
+
+├── attendance-service/
+│   ├── app/
+│   │   ├── api/
+│   │   │   └── attendance.py
+│   │   │
+│   │   ├── core/
+│   │   │   └── security.py
+│   │   │
+│   │   ├── database/
+│   │   │   └── connection.py
+│   │   │
+│   │   ├── models/
+│   │   │   └── attendance.py
+│   │   │
+│   │   ├── schemas/
+│   │   │   └── attendance_schema.py
+│   │   │
+│   │   ├── services/
+│   │   │   └── attendance_service.py
+│   │   │
+│   │   └── main.py
+│   │
+│   ├── requirements.txt
+│   ├── Dockerfile
+│   └── .env
+
+
+└── docs/
+    ├── architecture.png
+    └── api_design.md
