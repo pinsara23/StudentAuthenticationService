@@ -92,3 +92,6 @@ student-management-system/
 └── docs/
     ├── architecture.png
     └── api_design.md
+
+
+    conda env create -f environment.yml ---> how to crete a conda enviroment

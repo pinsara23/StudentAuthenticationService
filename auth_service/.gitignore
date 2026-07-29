@@ -1,20 +1,14 @@
+# Environments
 .env
-.venv/
-venv/
+.conda/
 env/
+venv/
+
+# Python
 __pycache__/
 *.py[cod]
-*.pyo
-*.pyd
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.coverage
-coverage.xml
-htmlcov/
-dist/
-build/
-*.egg-info/
-.python-version
-.DS_Store
+*$py.class
+
+# IDEs
 .vscode/
+.idea/
