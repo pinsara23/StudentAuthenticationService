@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException, status, Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
-from app.model.user import User
+from app.model.user import User # this is for db processes like entity
 from app.schemas.user_schema import UserCreate, LoginRequest
 from app.core.config import config
 from app.core.security import hash_password, verify_passwords, create_access_token

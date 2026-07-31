@@ -1,8 +1,8 @@
-from app.core.config import settings
+from app.core.config import Config
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-engine = create_engine(settings.DATABASE_URL)
+engine = create_engine(Config.DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 """
 autocommit=False : SQLALChemy does not save automatically my changes 
