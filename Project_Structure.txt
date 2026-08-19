@@ -95,3 +95,5 @@ student-management-system/
 
 
     conda env create -f environment.yml ---> how to crete a conda enviroment
+
+    uvicorn app.main:app --reload
