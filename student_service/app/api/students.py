@@ -17,6 +17,8 @@ allow_admin = RoleChecker(["admin"])
 allow_admin_lecturer = RoleChecker(["admin", "lecturer"])
 allow_student = RoleChecker(["student"])
 
+#students endpoints
+
 @router.get("/me", response_model=StudentResponse)
 def get_my_profile(
     db: Session = Depends(get_db),
