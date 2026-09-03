@@ -59,7 +59,16 @@ def get_current_user(db: Session = Depends(get_db), credentials: HTTPAuthorizati
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
     return user
 
-
+def verify_token(token: str):
+    try:
+        payload = jwt.decode(token, config.SECRET_KEY, algorithms=[config.ALGORITHM])
+        user_id = payload.get("user_id")
+        role = payload.get("role")
+        if user_id is None:
+            return {"valid": False}
+        return {"valid": True, "user_id": user_id, "role": role}
+    except JWTError:
+        return {"valid": False}
 
 
 

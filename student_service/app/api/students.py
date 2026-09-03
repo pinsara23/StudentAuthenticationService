@@ -50,17 +50,17 @@ def create_student(
     return student_service.create_student(db, student)
 
 @router.get("/", response_model=List[StudentResponse], dependencies=[Depends(allow_admin_lecturer)])
-def get_all_students(db: Session):
+def get_all_students(db: Session = Depends(get_db)):
     return student_service.search_student(db)  # Return all students if no filters are provided
 
-@router.get("/{id}", response_model=StudentResponse, dependencies=[Depends(get_current_user)])
+@router.get("/{student_id}", response_model=StudentResponse, dependencies=[Depends(get_current_user)]) # this "student_id" and "student_id" in the function parameter should be the same
 def get_student(
         student_id: int,
         db: Session = Depends(get_db)
 ):
     return student_service.get_student(db, student_id)
 
-@router.put("/{id}", response_model=StudentResponse, dependencies=[Depends(allow_admin)])
+@router.put("/{student_id}", response_model=StudentResponse, dependencies=[Depends(allow_admin)]) 
 def update_student(
         student_id: int,
         student: StudentUpdate,
@@ -68,7 +68,7 @@ def update_student(
 ):
     return student_service.update_student(db, student_id, student)
 
-@router.delete("/{id}", dependencies=[Depends(allow_admin)])
+@router.delete("/{student_id}", dependencies=[Depends(allow_admin)])
 def delete_student(
         student_id: int,
         db: Session = Depends(get_db)

@@ -97,3 +97,7 @@ student-management-system/
     conda env create -f environment.yml ---> how to crete a conda enviroment
 
     uvicorn app.main:app --reload
+
+    uvicorn app.main:app --reload --port 8000 --> auth_service
+
+    uvicorn app.main:app --reload --port 8002 --> student_service

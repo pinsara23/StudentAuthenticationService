@@ -27,3 +27,8 @@ def login(login_data: LoginRequest, db: Session = Depends(get_db)):
 @router.post("/profile", response_model=UserResponse)
 def get_profile(user: UserResponse = Depends(auth_service.get_current_user)):
     return user
+
+@router.post("/verify-token", response_model=TokenVerificationResponse)
+def verify_token(request: TokenRequest):
+    """Verify JWT validity for inter-service communication."""
+    return auth_service.verify_token(request.token)

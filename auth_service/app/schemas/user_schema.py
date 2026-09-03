@@ -25,6 +25,6 @@ class TokenResponse(BaseModel):
     token_type: str 
 
 class TokenVerificationResponse(BaseModel):
-    is_valid: bool
+    valid: bool
     user_id: Optional[int] = None
     role: Optional[str] = None

@@ -1,7 +1,8 @@
-from sqlalchemy import Session
+from sqlalchemy.orm import Session
 from fastapi import HTTPException
-from app.models import Student
+from app.models.student import Student
 from app.schemas.student_schema import StudentCreate, StudentUpdate
+
 
 def create_student(db: Session, student_in: StudentCreate):
 
