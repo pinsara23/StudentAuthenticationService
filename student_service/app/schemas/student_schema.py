@@ -23,7 +23,7 @@ class StudentCreate(StudentBase):
     student_number: str = Field(..., min_length=1)
     email: EmailStr
 
-class StudentUpdate(StudentBase):
+class StudentUpdate(BaseModel):
     first_name: Optional[str] = None
     last_name: Optional[str] = None 
     phone: Optional[str] = None
