@@ -10,4 +10,4 @@ class AttandanceRecord(Base):
     student_id = Column(Integer, nullable=False)  # Owned by Student Service
     status = Column(String, nullable=False)       # PRESENT, ABSENT, or LATE
     marked_at = Column(DateTime, default=datetime.utcnow)
-    marked_by = Column(Integer, nullable=False)   # Owned by Auth Service
+    marked_by = Column(Integer, nullable=False)   # Owned by Auth_Service
