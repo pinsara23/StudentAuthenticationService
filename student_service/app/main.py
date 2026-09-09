@@ -13,6 +13,9 @@ app = FastAPI(
 
 app.include_router(student_router)
 
-@app.get("/")
+@app.get("/health", tags=["Health"])
 def health_check():
-    return {"status": "Student Service is running"}
+    return {
+        "service": "student-service", 
+        "status": "healthy"
+    }

@@ -7,6 +7,9 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Authentication Service", version="1.0.0")
 app.include_router(auth_router)
 
-@app.get("/")
+@app.get("/health", tags=["Health"])
 def health_check():
-    return {"message": "Authentication Service is running."}
+    return {
+        "service": "auth-service", 
+        "status": "healthy"
+    }

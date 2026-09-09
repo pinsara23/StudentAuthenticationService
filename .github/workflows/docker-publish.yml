@@ -1,0 +1,43 @@
+name: Build and Push to Docker Hub
+
+on:
+  push:
+    branches:
+      - main
+  # This allows you to click a button in GitHub to run it manually
+  workflow_dispatch: 
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    # The matrix maps your local folder names to your desired DockerHub image names
+    strategy:
+      matrix:
+        include:
+          - directory: auth_service
+            image: auth-service
+          - directory: student_service
+            image: student-service
+          - directory: attendance_service
+            image: attendance-service
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and Push ${{ matrix.image }}
+        uses: docker/build-push-action@v5
+        with:
+          context: ./${{ matrix.directory }}
+          file: ./${{ matrix.directory }}/Dockerfile
+          push: true
+          tags: pinsara23/${{ matrix.image }}:latest

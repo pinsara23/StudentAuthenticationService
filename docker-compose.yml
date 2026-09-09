@@ -1,0 +1,113 @@
+version: '3.8'
+
+services:
+  # ==========================================
+  # AUTHENTICATION SERVICE
+  # ==========================================
+  auth-db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: auth_db
+    ports:
+      - "5431:5432" # Host Port : Container Port
+    volumes:
+      - auth_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d auth_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  auth-service:
+    image: pinsara23/auth-service:latest
+    ports:
+      - "8001:8000" 
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@auth-db:5432/auth_db
+      - SECRET_KEY=your_super_secret_jwt_key_here
+    depends_on:
+      auth-db:
+        condition: service_healthy
+
+  # ==========================================
+  # STUDENT SERVICE
+  # ==========================================
+  student-db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: student_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - student_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d student_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  student-service:
+    image: pinsara23/student-service:latest
+    ports:
+      - "8002:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@student-db:5432/student_db
+      # Using internal Docker network name for the Auth Service
+      - AUTH_SERVICE_URL=http://auth-service:8000/auth/verify-token
+    depends_on:
+      student-db:
+        condition: service_healthy
+
+  # ==========================================
+  # ATTENDANCE SERVICE
+  # ==========================================
+  attendance-db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: attendance_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - attendance_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d attendance_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  attendance-service:
+    image: pinsara23/attendance-service:latest
+    ports:
+      - "8003:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@attendance-db:5432/attendance_db
+      # Using internal Docker network names for Auth and Student Services
+      - AUTH_SERVICE_URL=http://auth-service:8000/auth/verify-token
+      - STUDENT_SERVICE_URL=http://student-service:8000/students
+    depends_on:
+      attendance-db:
+        condition: service_healthy
+
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      # This gives Watchtower permission to talk to the Docker daemon to restart containers
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 60 # Checks DockerHub every 60 seconds
+    environment:
+      # Automatically delete the old image after pulling the new one to save disk space
+      - WATCHTOWER_CLEANUP=true
+
+# Define persistent storage volumes
+volumes:
+  auth_data:
+  student_data:
+  attendance_data:
+
+  

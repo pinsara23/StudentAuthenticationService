@@ -16,6 +16,9 @@ app.include_router(course_router)
 app.include_router(attendance_router)
 app.include_router(report_router)
 
-@app.get("/")
+@app.get("/health", tags=["Health"])
 def health_check():
-    return {"status": "Attendance Service is running on Port 8003"}
+    return {
+        "service": "attendance-service", 
+        "status": "healthy"
+    }
