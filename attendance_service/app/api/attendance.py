@@ -28,10 +28,10 @@ async def mark_attendance(
 ):
     """Admin/Lecturer: Mark student attendance (Calls Student Service)."""
     return await attendance_service.create_record(
-        db, 
-        session_id, 
-        record, 
-        current_user["user_id"], 
-        current_user["role"], 
-        current_user["raw_token"]
+        db=db, 
+        session_id=session_id, 
+        record_in=record, 
+        user_id=current_user["user_id"], 
+        role=current_user["role"], 
+        token=current_user["raw_token"]
     )
