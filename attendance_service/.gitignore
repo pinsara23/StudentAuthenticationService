@@ -1,14 +1,30 @@
-# Environments
+# Environment variables (keep .env.example tracked)
 .env
+.env.*
+!.env.example
+
+# Virtual environments
 .conda/
 env/
 venv/
+.venv/
 
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 
-# IDEs
+# Logs
+*.log
+
+# IDEs / OS
 .vscode/
 .idea/
+.DS_Store
+Thumbs.db
